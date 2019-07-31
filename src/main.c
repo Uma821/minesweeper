@@ -1,4 +1,4 @@
-//マインスイーパー2.2.3
+//マインスイーパー2.2.4
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -77,12 +77,12 @@ int main(void){
         }
     }
 
-    //neta(1);puts("");
+    //neta(-1);puts("");
 
     //ゲーム開始
     while (1) {
         //現在の結果を画面に表示
-        n = neta(0);
+        n = neta(fin);
 
         if(bombs == n){
             fin = 1;
@@ -103,15 +103,17 @@ int main(void){
             op();
 
          //爆弾を引いた
-        if (map[xs][ys][0] == -2)
+        if (map[xs][ys][0] == -2){
+            fin = -1;
             break;
+        }
 
         opensel(xs, ys);
     }
      //ゲーム終了
-    if(fin == 0){
+    if(fin == -1){
         printf("爆弾 !\n");
-        neta(1);
+        neta(fin);
     }
 
     if(fin == 1){
@@ -155,35 +157,37 @@ int neta(int s){
         printf("%d| ", y % 10);
 
         for (x = 1; x <= wide; x++) {
-            if (map[x][y][1] == 1) {
-                if(map[x][y][2] == 1)
-                    printf("\033[038;2;100;100;255m");
-                else if(map[x][y][2] == 2)
-                    printf("\033[038;2;100;255;100m");
-                else if(map[x][y][2] == 3)
-                    printf("\033[038;2;255;100;100m");
-                else if(map[x][y][2] == 4)
-                    printf("\033[038;2;255;100;255m");
-                else if(map[x][y][2] == 5)
-                    printf("\033[038;2;165;42;42m");
-                else if(map[x][y][2] == 6)
-                    printf("\033[038;2;0;206;100m");
-                else if(map[x][y][2] == 7)
-                    printf("\033[038;2;10;10;10m");
-                else if(map[x][y][2] == 8)
-                    printf("\033[038;2;127;127;127m");
-                printf("%d \033[m",map[x][y][2]);
-            } else if (s == 0 && map[x][y][3]!=0) {
-                printf("  ");
-                n++;
-            } else if (map[x][y][3]==0){
-                printf("\033[31mF \033[m");
-                n++;
-            } else if (s == 1){
-                if(map[x][y][0] == -2)
-                    printf("B ");
-                else
-                    printf("%d ",map[x][y][2]);
+        	if(s == -1){
+        		if(map[x][y][0] == -2)
+        		    printf("B ");
+        		else
+        		    printf("%d ",map[x][y][2]);
+            } else {
+                if (map[x][y][1] == 1) {
+                    if(map[x][y][2] == 1)
+                        printf("\033[038;2;100;100;255m");
+                    else if(map[x][y][2] == 2)
+                        printf("\033[038;2;100;255;100m");
+                    else if(map[x][y][2] == 3)
+                        printf("\033[038;2;255;100;100m");
+                    else if(map[x][y][2] == 4)
+                        printf("\033[038;2;255;100;255m");
+                    else if(map[x][y][2] == 5)
+                        printf("\033[038;2;165;42;42m");
+                    else if(map[x][y][2] == 6)
+                        printf("\033[038;2;0;206;100m");
+                    else if(map[x][y][2] == 7)
+                        printf("\033[038;2;10;10;10m");
+                    else if(map[x][y][2] == 8)
+                        printf("\033[038;2;127;127;127m");
+                    printf("%d \033[m",map[x][y][2]);
+                } else if (map[x][y][3] != 0) {
+                    printf("  ");
+                    n++;
+                } else if (map[x][y][3] == 0){
+                    printf("\033[31mF \033[m");
+                    n++;
+                }
             }
         }
         puts("|");
