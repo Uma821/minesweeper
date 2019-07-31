@@ -1,11 +1,10 @@
-//マインスイーパー2.0.1
+//マインスイーパー2.0.2
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
 void opensel(int ,int);
 int map[9999][9999][3], wide, high;
 int main(void){ 
-
     int x, y, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
     printf("盤面の高さを入力＝＞　");
     scanf("%d", &high);
@@ -84,7 +83,7 @@ int main(void){
 
     //ゲーム開始 
     while (1) { 
-        n = -1;
+        n = 0;
          //現在の結果を画面に表示 
         printf("  ");
         for(x = 1; x <= wide; x++){
@@ -131,6 +130,11 @@ int main(void){
         }
         puts("-+"); 
 
+        if(bombs == n){
+            fin = 1;
+            break;
+        }
+
          //プレーヤーが場所を入力  
         count++; 
         printf("場所を入力してください (x y) [%d 回目]:", count); 
@@ -141,11 +145,6 @@ int main(void){
             break; 
         
         opensel(xs, ys);
-
-        if(bombs == n){
-            fin = 1;
-            break;
-        }
     } 
      //ゲーム終了
     if(fin == 0){
