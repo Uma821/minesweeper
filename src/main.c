@@ -1,11 +1,11 @@
-//マインスイーパー2.0
-//色付き
+//マインスイーパー2.0.1
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
 void opensel(int ,int);
 int map[9999][9999][3], wide, high;
 int main(void){ 
+
     int x, y, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
     printf("盤面の高さを入力＝＞　");
     scanf("%d", &high);
@@ -20,8 +20,10 @@ int main(void){
         } 
     } 
 
-    printf("爆弾の数(%d個以内)を入力＝＞　",high*wide);
-    scanf("%d", &bombs);
+    do{
+        printf("爆弾の数(%d個以内)を入力＝＞　",high*wide);
+        scanf("%d", &bombs);
+    }while(bombs > high*wide || bombs < 0);
 
     //爆弾セット
     srand( time(0) );
