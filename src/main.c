@@ -1,4 +1,4 @@
-//マインスイーパー2.2.2
+//マインスイーパー2.2.3
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -91,7 +91,7 @@ int main(void){
 
          //プレーヤーが場所を入力
         do {
-            xs = ys = 0;
+            xs = ys = -1;
             count++;
             printf("場所を入力してください (x y) [%d 回目]:", count);
             fflush(stdout);
