@@ -1,16 +1,17 @@
-//マインスイーパー1.0
+//マインスイーパー1.1
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
+void opensel(int ,int);
+int map[9999][9999][3], wide, high;
 int main(void){ 
 
-    int x, y, high, wide, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
+    int x, y, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
     printf("盤面の高さを入力＝＞　");
     scanf("%d", &high);
     printf("盤面の幅を入力＝＞　");
     scanf("%d", &wide);
 
-    int map[wide+2][high+2][3]; 
 
     //配列初期化
      for(y = 0; y <= high + 1; y++) { 
@@ -116,23 +117,13 @@ int main(void){
         count++; 
         printf("場所を入力してください (x y) [%d 回目]:", count); 
         scanf("%d %d",&xs ,&ys);
-        map[xs][ys][1] = 1;
 
          //爆弾を引いた
         if (map[xs][ys][0] == -2) 
             break; 
         
-        //爆弾がないときその周囲を開ける
-        if (map[xs][ys][2] == 0){
-            map[xs - 1][ys - 1][1] = 1;
-            map[xs - 1][ys][1] = 1;
-            map[xs - 1][ys + 1][1] = 1;
-            map[xs][ys + 1][1] = 1;
-            map[xs][ys - 1][1] = 1;
-            map[xs + 1][ys - 1][1] = 1;
-            map[xs + 1][ys][1] = 1;
-            map[xs + 1][ys + 1][1] = 1;
-        } 
+        opensel(xs, ys);
+
         if(bombs == n){
             fin = 1;
             break;
@@ -154,4 +145,23 @@ int main(void){
         puts("congratulation!");
     } 
     return 0;
+}
+
+void opensel(int x,int y){
+    //爆弾がないときその周囲を開ける
+    if(x < 1 || x > wide || y < 1 || y > high)
+        return;
+    if(map[x][y][1] == 1)
+        return;
+    map[x][y][1] = 1;
+    if (map[x][y][2] == 0){
+        opensel(x - 1, y - 1);
+        opensel(x - 1, y);
+        opensel(x - 1, y + 1);
+        opensel(x, y + 1);
+        opensel(x, y - 1);
+        opensel(x + 1, y - 1);
+        opensel(x + 1, y);
+        opensel(x + 1, y + 1);
+    }
 }
