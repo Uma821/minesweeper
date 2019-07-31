@@ -1,11 +1,11 @@
-//マインスイーパー1.1
+//マインスイーパー2.0
+//色付き
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
 void opensel(int ,int);
 int map[9999][9999][3], wide, high;
 int main(void){ 
-
     int x, y, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
     printf("盤面の高さを入力＝＞　");
     scanf("%d", &high);
@@ -98,7 +98,23 @@ int main(void){
 
             for (x = 1; x <= wide; x++) { 
                 if (map[x][y][1] == 1) { 
-                    printf("%d ",map[x][y][2]); 
+                    if(map[x][y][2] == 1)
+                        printf("\033[038;2;100;100;255m"); 
+                    else if(map[x][y][2] == 2)
+                        printf("\033[038;2;100;255;100m");
+                    else if(map[x][y][2] == 3)
+                        printf("\033[038;2;255;100;100m");
+                    else if(map[x][y][2] == 4)
+                        printf("\033[038;2;255;100;255m");
+                    else if(map[x][y][2] == 5)
+                        printf("\033[038;2;165;42;42m");
+                    else if(map[x][y][2] == 6)
+                        printf("\033[038;2;0;206;100m");
+                    else if(map[x][y][2] == 7)
+                        printf("\033[038;2;10;10;10m");
+                    else if(map[x][y][2] == 8)
+                        printf("\033[038;2;127;127;127m");
+                    printf("%d \033[m",map[x][y][2]); 
                 } else { 
                     printf("  "); 
                     n++;
