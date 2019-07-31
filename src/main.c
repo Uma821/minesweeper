@@ -1,4 +1,4 @@
-//マインスイーパー2.2.1
+//マインスイーパー2.2.2
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -177,7 +177,7 @@ int neta(int s){
                 printf("  ");
                 n++;
             } else if (map[x][y][3]==0){
-                printf("F ");
+                printf("\033[31mF \033[m");
                 n++;
             } else if (s == 1){
                 if(map[x][y][0] == -2)
