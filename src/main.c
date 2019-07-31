@@ -1,11 +1,10 @@
-//マインスイーパー0.9.1
+//マインスイーパー1.0
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <time.h> 
 int main(void){ 
 
-
-    int x, y, high, wide, ranx, rany, count = 0, xs, ys, bomb, bombs;
+    int x, y, high, wide, ranx, rany, count = 0, xs, ys, bomb, bombs, n, fin=0;
     printf("盤面の高さを入力＝＞　");
     scanf("%d", &high);
     printf("盤面の幅を入力＝＞　");
@@ -34,12 +33,12 @@ int main(void){
         }
     }
     
-   /* for (y = 1; y <= high; y++) { 
+    /* for (y = 1; y <= high; y++) { 
         for (x = 1; x <= wide; x++){
             printf("%d ",map[x][y][0]);
         }
         puts("");
-    } puts("\n");*/
+    } puts("\n"); */
 
 
     //場所のまわりの爆弾を数える
@@ -72,16 +71,17 @@ int main(void){
         }
     }
 
-    /*for (y = 1; y <= high; y++) { 
+    /* for (y = 1; y <= high; y++) { 
         for (x = 1; x <= wide; x++){
             printf("%2d ",map[x][y][2]);
         }
         puts("");
-    } puts("\n");*/
+    } puts("\n"); */
 
 
     //ゲーム開始 
     while (1) { 
+        n = -1;
          //現在の結果を画面に表示 
         printf("  ");
         for(x = 1; x <= wide; x++){
@@ -100,6 +100,7 @@ int main(void){
                     printf("%d ",map[x][y][2]); 
                 } else { 
                     printf("  "); 
+                    n++;
                 } 
             } 
             puts("|"); 
@@ -132,15 +133,25 @@ int main(void){
             map[xs + 1][ys][1] = 1;
             map[xs + 1][ys + 1][1] = 1;
         } 
+        if(bombs == n){
+            fin = 1;
+            break;
+        }
     } 
      //ゲーム終了
-    printf("爆弾 !\n"); 
+    if(fin == 0){
+        printf("爆弾 !\n"); 
     
-   
-    for (y = 1; y <= high; y++) { 
-        for (x = 1; x <= wide; x++){
-            printf("%2d ",map[x][y][0]);
-        }
-        puts("");
+        for (y = 1; y <= high; y++) { 
+            for (x = 1; x <= wide; x++){
+                printf("%2d ",map[x][y][0]);
+            }
+            puts("");
+        } 
+    }
+
+    if(fin == 1){
+        puts("congratulation!");
     } 
+    return 0;
 }
